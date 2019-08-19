@@ -41,12 +41,10 @@ function wc_autoship_cache_find( $type, $age = 0, $customer_id = NULL, $schedule
 			$args[] = $schedule_item_id;
 		}
 		$wpdb->show_errors( false );
-
 		$value = $wpdb->get_var( $wpdb->prepare(
 			"SELECT cache_value FROM {$wpdb->prefix}wc_autoship_cache WHERE " . implode( ' AND ', $where ) . ' ORDER BY cache_time DESC LIMIT 0,1',
 			$args
 		) );
-
 		if ( ! empty( $value ) ) {
 			$data = unserialize( $value );
 			return $data;

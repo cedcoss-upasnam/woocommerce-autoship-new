@@ -62,7 +62,7 @@ function wc_autoship_ajax_schedules_get_cart() {
 		wc_autoship_ajax_result( 404 );
 	}
 	$schedule = new WC_Autoship_Models_Schedule( $schedule_id );
-	
+
 	// Try to get cached cart
 	$cache_cart_enabled = apply_filters( 'wc_autoship_cache_cart_enabled', true );
 	if ( $cache_cart_enabled ) {
@@ -76,13 +76,9 @@ function wc_autoship_ajax_schedules_get_cart() {
 		// Create pipey client
 		require_once( WC_AUTOSHIP_SRC_DIR . '/Pipey/Client.php' );
 		$pipey = new WC_Autoship_Pipey_Client();
-
 		// Login
 		$customer_id = $schedule->get_customer_id();
-
 		$pipey->login( $customer_id );
-
-		
 		// Add items
 		$items = $schedule->get_items();
 		foreach ( $items as $item ) {
@@ -99,11 +95,8 @@ function wc_autoship_ajax_schedules_get_cart() {
 		$cart = $pipey->get_cart();
 		// Empty cart
 		$pipey->empty_cart();
-
-
 		// Cache cart
 		wc_autoship_schedules_cache_cart( $schedule_id, $cart );
-
 		// Return cart
 		wc_autoship_ajax_result( 200, $cart );
 	} catch ( WC_Autoship_Pipey_Exception $e ) {

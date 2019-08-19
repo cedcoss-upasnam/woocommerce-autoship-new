@@ -2,7 +2,10 @@
 
 function wc_autoship_enqueue_css() {
 	wp_enqueue_style( 'pickaday', plugin_dir_url( WC_AUTOSHIP_PLUGIN_FILE ) . 'styles/pickaday.css', array(), WC_AUTOSHIP_VERSION );
-	wp_enqueue_style( 'wc-autoship', plugin_dir_url( WC_AUTOSHIP_PLUGIN_FILE ) . 'styles/style.css', array(), WC_AUTOSHIP_VERSION );
+	if(!is_front_page()){
+
+		wp_enqueue_style( 'wc-autoship', plugin_dir_url( WC_AUTOSHIP_PLUGIN_FILE ) . 'styles/style.css', array(), WC_AUTOSHIP_VERSION );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'wc_autoship_enqueue_css' );
 

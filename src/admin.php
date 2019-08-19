@@ -17,8 +17,10 @@ function wc_autoship_admin_enqueue_css() {
 			. '/themes/smoothness/jquery-ui.css'
 		);
 	}
+	if(!is_front_page()){
 
-	wp_enqueue_style( 'pickaday', $url_path . 'styles/pickaday.css', array(), WC_AUTOSHIP_VERSION );
+		wp_enqueue_style( 'pickaday', $url_path . 'styles/pickaday.css', array(), WC_AUTOSHIP_VERSION );
+	}
 	// Admin style
 	wp_enqueue_style( 'wc-autoship-admin-style', $url_path . 'styles/admin-style.css', array(), WC_AUTOSHIP_VERSION );
 }
@@ -372,41 +374,41 @@ function wc_autoship_get_system_warnings() {
 	}
 
 	// Pipey ip
-	// $pipey_ip = wc_autoship_get_pipey_ip();
-	// if ( empty( $pipey_ip ) ) {
-	// 	$nonce = wp_hash( 'wc_autoship_get_pipey_ip_nonce' . time() );
-	// 	update_option( 'wc_autoship_get_pipey_ip_nonce', $nonce );
-	// 	$status['pipey_ip'] = __(
-	// 		'WC Auto-Ship requires client configuration! '
-	// 		. '<a href="' . admin_url( 'admin-ajax.php?action=wc_autoship_create_pipey_ip&nonce=' . urlencode( $nonce ) ) . '" class="button">Configure now!</a>',
-	// 		'wc-autoship'
-	// 	);
-	// }
+	$pipey_ip = wc_autoship_get_pipey_ip();
+	if ( empty( $pipey_ip ) ) {
+		$nonce = wp_hash( 'wc_autoship_get_pipey_ip_nonce' . time() );
+		update_option( 'wc_autoship_get_pipey_ip_nonce', $nonce );
+		$status['pipey_ip'] = __(
+			'WC Auto-Ship requires client configuration! '
+			. '<a href="' . admin_url( 'admin-ajax.php?action=wc_autoship_create_pipey_ip&nonce=' . urlencode( $nonce ) ) . '" class="button">Configure now!</a>',
+			'wc-autoship'
+		);
+	}
 
 	// License key
 	$license_key = get_option( 'wc_autoship_license_key' );
 	$license_key_validated = get_option( 'wc_autoship_license_key_validated' );
 	$license_key_expires = strtotime( get_option( 'wc_autoship_license_key_expires' ) );
-	// if ( ! empty( $license_key ) && ! empty( $license_key_validated )
-	// 	&& $license_key_expires < time() ) {
-	// 	$status['license_key'] = __(
-	// 		'Your <a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_autoship' ) . '">'
-	// 		. 'WC Autoship License Key</a> expired on '
-	// 		. date( get_option( 'date_format' ), $license_key_expires ) . '. '
-	// 		. 'Please visit <a href="http://wooautoship.com">http://wooautoship.com</a> '
-	// 		. 'to renew your license and receive core updates.',
-	// 		'wc-autoship'
-	// 	);
-	// } elseif ( empty( $license_key ) || empty( $license_key_validated )
-	// 	|| empty( $license_key_expires ) ) {
-	// 	$status['license_key'] = __(
-	// 		'Your <a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_autoship' ) . '">'
-	// 		. 'WC Autoship License Key</a> is invalid. '
-	// 		. 'Please visit <a href="http://wooautoship.com">http://wooautoship.com</a> '
-	// 		. 'to purchase a license and receive core updates.',
-	// 		'wc-autoship'
-	// 	);
-	// }
+	if ( ! empty( $license_key ) && ! empty( $license_key_validated )
+		&& $license_key_expires < time() ) {
+		$status['license_key'] = __(
+			'Your <a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_autoship' ) . '">'
+			. 'WC Autoship License Key</a> expired on '
+			. date( get_option( 'date_format' ), $license_key_expires ) . '. '
+			. 'Please visit <a href="http://wooautoship.com">http://wooautoship.com</a> '
+			. 'to renew your license and receive core updates.',
+			'wc-autoship'
+		);
+	} elseif ( empty( $license_key ) || empty( $license_key_validated )
+		|| empty( $license_key_expires ) ) {
+		$status['license_key'] = __(
+			'Your <a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_autoship' ) . '">'
+			. 'WC Autoship License Key</a> is invalid. '
+			. 'Please visit <a href="http://wooautoship.com">http://wooautoship.com</a> '
+			. 'to purchase a license and receive core updates.',
+			'wc-autoship'
+		);
+	}
 
 	// Process autoship orders
 	if ( ! wc_autoship_process_autoship_orders_is_ok() ) {

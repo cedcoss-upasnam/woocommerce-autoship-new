@@ -3,7 +3,7 @@
 Plugin Name: WC Autoship
 Plugin URI: http://wooautoship.com
 Description: Add autoship options to products in WooCommerce
-Version: 4.1.14
+Version: 4.1.15
 Author: Patterns in the Cloud
 Author URI: http://patternsinthecloud.com
 License: Single-site
@@ -13,7 +13,7 @@ License: Single-site
  * Define constants
  */
 /** @const WC Autoship Version */
-define( 'WC_AUTOSHIP_VERSION', '4.1.14' );
+define( 'WC_AUTOSHIP_VERSION', '4.1.15' );
 if ( ! defined( 'WC_AUTOSHIP_PLUGIN_FILE' ) ) {
 	define( 'WC_AUTOSHIP_PLUGIN_FILE', __FILE__ );
 }

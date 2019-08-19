@@ -33,7 +33,7 @@ function wc_autoship_ajax_pipey_is_authorized() { return true;
 	return true;
 }
 
-function wc_autoship_ajax_pipey_authorize() { 
+function wc_autoship_ajax_pipey_authorize() {
 	if ( ! wc_autoship_ajax_pipey_is_authorized() ) {
 		wc_autoship_ajax_result( 403 );
 	}
@@ -132,7 +132,7 @@ function wc_autoship_ajax_pipey_create_update_shipping_method_nonce() {
 }
 add_action( 'wp_ajax_wc_autoship_pipey_create_update_shipping_method_nonce', 'wc_autoship_ajax_pipey_create_update_shipping_method_nonce' );
 
-function wc_autoship_ajax_pipey_set_user() { 
+function wc_autoship_ajax_pipey_set_user() {
 	wc_autoship_ajax_pipey_authorize();
 	$user_id = $_POST['user_id'];
 	$user = get_user_by( 'id', $user_id );

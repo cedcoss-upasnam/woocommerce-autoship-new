@@ -7,6 +7,7 @@ function wc_autoship_ajax_upgrade_db() {
 	wc_autoship_upgrade_db();
 	wc_autoship_add_message( __( 'WC Autoship database upgraded!', 'wc-autoship' ) );
 	wp_redirect( admin_url( '/' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_upgrade_db', 'wc_autoship_ajax_upgrade_db' );
 
@@ -27,6 +28,7 @@ function wc_autoship_ajax_create_pages() {
 	}
 
 	wp_redirect( admin_url( '/admin.php?page=wc-settings&tab=wc_autoship' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_create_pages', 'wc_autoship_ajax_create_pages' );
 
@@ -50,6 +52,7 @@ function wc_autoship_ajax_create_pipey_key() {
 	wc_autoship_create_pipey_key();
 	wc_autoship_add_message( __( 'WC Autoship configured!', 'wc-autoship' ) );
 	wp_redirect( admin_url( '/' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_create_pipey_key', 'wc_autoship_ajax_create_pipey_key' );
 
@@ -69,6 +72,7 @@ function wc_autoship_ajax_create_pipey_ip() {
 		wc_autoship_add_message( esc_html( $e->getCode() . ' ' . $e->getMessage() ), 'error' );
 	}
 	wp_redirect( admin_url( '/' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_create_pipey_ip', 'wc_autoship_ajax_create_pipey_ip' );
 
@@ -84,6 +88,7 @@ function wc_autoship_ajax_reset_configuration() {
 	wc_autoship_add_message( __( 'The WC Autoship Configuration was reset! Please follow the alerts below to re-configure.', 'wc-autoship' ), 'notice-warning' );
 	// Redirect to admin dashboard
 	wp_redirect( admin_url( '/' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_reset_configuration', 'wc_autoship_ajax_reset_configuration' );
 
@@ -96,6 +101,7 @@ function wc_autoship_ajax_delete_cache() {
 	wc_autoship_add_message( __( 'The WC Autoship Cache has been deleted!', 'wc-autoship' ) );
 	// Redirect to settings page
 	wp_redirect( admin_url( '/admin.php?page=wc-settings&tab=wc_autoship' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_delete_cache', 'wc_autoship_ajax_delete_cache' );
 
@@ -107,6 +113,7 @@ function wc_autoship_ajax_reset_cron() {
 	wc_autoship_schedule_autoship();
 	wc_autoship_add_message( __( "Autoship cron events have been reset!", "wc-autoship" ) );
 	wp_redirect( admin_url( 'admin.php?page=wc-settings&tab=wc_autoship' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_reset_cron', 'wc_autoship_ajax_reset_cron' );
 
@@ -118,5 +125,6 @@ function wc_autoship_admin_dismiss_wp_cron_warning() {
 	update_option( 'wc_autoship_wp_cron_warning_dismissed', 'yes' );
 	// Redirect to admin dashboard
 	wp_redirect( admin_url( '/' ) );
+	die();
 }
 add_action( 'wp_ajax_wc_autoship_dismiss_wp_cron_warning', 'wc_autoship_admin_dismiss_wp_cron_warning' );
